@@ -1,0 +1,3 @@
+include ':autoscrollcircularpagerview'
+include ':app'
+rootProject.name = "AutoScrollViewPager"

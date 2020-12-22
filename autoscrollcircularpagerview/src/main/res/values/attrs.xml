@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="AutoScrollCircularPagerView">
+        <attr name="unselected_dot_color" format="color" />
+        <attr name="selected_dot_color" format="color" />
+        <attr name="auto_scroll_delay" format="integer" />
+        <attr name="is_auto_scroll" format="boolean" />
+        <attr name="dot_margin" format="dimension" />
+        <attr name="dot_gravity" format="enum">
+            <enum name="bottom" value="0"/>
+            <enum name="top" value="1"/>
+        </attr>
+    </declare-styleable>
+</resources>
