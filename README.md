@@ -82,6 +82,7 @@ AutoScrollCircularPagerView is a library to show slider with features of circula
         }
     }
     ```
+---------------------------------------------------------------------
 ### Guideline for contributors
 Contribution towards our repository is always welcome, we request contributors to create a pull request to the **develop** branch only.  
 
