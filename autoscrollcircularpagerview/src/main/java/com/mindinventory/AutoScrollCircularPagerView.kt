@@ -2,6 +2,7 @@ package com.mindinventory
 
 import android.content.Context
 import android.graphics.PorterDuff
+import android.os.Build
 import android.os.Handler
 import android.os.Looper
 import android.util.AttributeSet
@@ -10,6 +11,7 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.widget.FrameLayout
 import android.widget.LinearLayout
+import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.content.ContextCompat
 import androidx.core.view.setMargins
@@ -36,6 +38,7 @@ class AutoScrollCircularPagerView @JvmOverloads constructor(
     private var marginDots = -1
     private var dotGravity = DotGravity.BOTTOM.value
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     private val runnable = Runnable {
         autoScrollViewpager()
     }
@@ -93,6 +96,7 @@ class AutoScrollCircularPagerView @JvmOverloads constructor(
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     fun setAutoScrollDelay(autoScrollDelay: Long) {
         if (autoScrollDelay < 500) {
             this.autoScrollDelay = autoScrollDelay
@@ -105,13 +109,12 @@ class AutoScrollCircularPagerView @JvmOverloads constructor(
         val snapHelper: SnapHelper = PagerSnapHelper()
         snapHelper.attachToRecyclerView(rvAutoScroll)
         rvAutoScroll.addOnScrollListener(
-            CenterItemFinder(
-                context,
+            OnScrollListener(
                 rvAutoScroll.layoutManager as LinearLayoutManager,
                 object : CenterItemCallback {
-                    override fun onScrollFinished(middleElement: Int) {
-                        centerItemPosition = middleElement
-                        onPageSelected(middleElement)
+                    override fun onScrollFinished(visibleItemPosition: Int) {
+                        centerItemPosition = visibleItemPosition
+                        onPageSelected(centerItemPosition)
                     }
 
                     override fun onScrolled(dx: Int) {
@@ -128,6 +131,7 @@ class AutoScrollCircularPagerView @JvmOverloads constructor(
         rvAutoScroll.adapter = circularAdapter
     }
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     @Suppress("UNCHECKED_CAST")
     fun <E> setItems(items: ArrayList<E>, clearPreviousElements: Boolean = false) {
         if (rvAutoScroll.adapter is CircularAdapter<*>) {
@@ -137,11 +141,8 @@ class AutoScrollCircularPagerView @JvmOverloads constructor(
             //scroll and dots are not required for just 1 item in the list
             if (items.size > 1) {
                 //To manage selection of first item when auto scroll start
-                centerItemPosition += if (items.size % 2 == 0) {
-                    1
-                } else {
-                    2
-                }
+                val number: Int = Int.MAX_VALUE / items.size / 2
+                centerItemPosition = number * items.size
                 rvAutoScroll.layoutManager?.scrollToPosition(centerItemPosition)
                 setDots(items)
             }
@@ -195,11 +196,13 @@ class AutoScrollCircularPagerView @JvmOverloads constructor(
         return circularAdapter?.getActualItemCount() ?: 0 > 1
     }
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     private fun startAutoScrollIfRequired() {
         if (requiredAutoScroll() && !scrollHandler.hasCallbacks(runnable) && isAutoScrollEnabled)
             scrollHandler.postDelayed(runnable, autoScrollDelay)
     }
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     private fun stopAutoScrollIfRequired() {
         if (scrollHandler.hasCallbacks(runnable)) {
             scrollHandler.removeCallbacks(runnable)
@@ -209,19 +212,23 @@ class AutoScrollCircularPagerView @JvmOverloads constructor(
     /**
      * smooth scroll item to next position
      */
+    @RequiresApi(Build.VERSION_CODES.Q)
     private fun autoScrollViewpager() {
         rvAutoScroll.adapter?.let {
-            rvAutoScroll.smoothScrollToPosition(centerItemPosition + 1)
+            centerItemPosition += 1
+            rvAutoScroll.smoothScrollToPosition(centerItemPosition)
         }
         stopAutoScrollIfRequired()
         startAutoScrollIfRequired()
     }
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
         stopAutoScrollIfRequired()
     }
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     override fun onVisibilityAggregated(isVisible: Boolean) {
         super.onVisibilityAggregated(isVisible)
         if (isVisible) {

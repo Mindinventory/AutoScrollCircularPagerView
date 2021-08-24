@@ -35,7 +35,7 @@ AutoScrollCircularPagerView is a library to show slider with features of circula
     ```groovy
         dependencies {
             ...
-            implementation 'com.github.Mindinventory:AutoScrollCircularPagerView:0.0.1'
+            implementation 'com.github.Mindinventory:AutoScrollCircularPagerView:0.0.2'
         }
     ``` 
 

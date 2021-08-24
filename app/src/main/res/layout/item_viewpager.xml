@@ -7,9 +7,9 @@
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/ivThumb"
-        android:scaleType="centerCrop"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:scaleType="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
