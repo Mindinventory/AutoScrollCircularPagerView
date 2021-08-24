@@ -1,6 +1,6 @@
 package com.mindinventory
 
 interface CenterItemCallback {
-    fun onScrollFinished()
+    fun onScrollFinished(visibleItemPosition: Int)
     fun onScrolled(dx: Int)
 }

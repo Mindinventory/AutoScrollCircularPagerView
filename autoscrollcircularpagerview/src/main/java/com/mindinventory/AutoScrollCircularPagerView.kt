@@ -15,6 +15,7 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.content.ContextCompat
 import androidx.core.view.setMargins
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SnapHelper
@@ -109,8 +110,10 @@ class AutoScrollCircularPagerView @JvmOverloads constructor(
         snapHelper.attachToRecyclerView(rvAutoScroll)
         rvAutoScroll.addOnScrollListener(
             OnScrollListener(
+                rvAutoScroll.layoutManager as LinearLayoutManager,
                 object : CenterItemCallback {
-                    override fun onScrollFinished() {
+                    override fun onScrollFinished(visibleItemPosition: Int) {
+                        centerItemPosition = visibleItemPosition
                         onPageSelected(centerItemPosition)
                     }
 

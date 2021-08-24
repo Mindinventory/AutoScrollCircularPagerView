@@ -8,19 +8,11 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
     private val images = ArrayList<Int>().apply {
-        add(R.drawable.number0)
-        add(R.drawable.number1)
-        add(R.drawable.number2)
-        add(R.drawable.number3)
-        add(R.drawable.number4)
-        add(R.drawable.number5)
-        add(R.drawable.number6)
-        add(R.drawable.number7)
-        add(R.drawable.number8)
-        add(R.drawable.number9)
-        add(R.drawable.number10)
-        add(R.drawable.number11)
-        add(R.drawable.number12)
+        add(R.drawable.image1)
+        add(R.drawable.image2)
+        add(R.drawable.image3)
+        add(R.drawable.image4)
+        add(R.drawable.image5)
     }
     private val myAdapter by lazy { MyAdapter() }
 

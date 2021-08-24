@@ -1,8 +1,10 @@
 package com.mindinventory
 
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 class OnScrollListener(
+    private val layoutManager: LinearLayoutManager,
     private val callback: CenterItemCallback,
     private val controlState: Int
 ) : RecyclerView.OnScrollListener() {
@@ -14,7 +16,8 @@ class OnScrollListener(
 
     override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
         if (newState == controlState) {
-            callback.onScrollFinished()
+            val visibleItemPosition = layoutManager.findFirstVisibleItemPosition()
+            callback.onScrollFinished(visibleItemPosition)
         }
     }
 }
