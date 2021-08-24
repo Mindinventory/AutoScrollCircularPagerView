@@ -11,7 +11,7 @@
         android:layout_width="0dp"
         android:layout_height="250dp"
         android:orientation="horizontal"
-        app:auto_scroll_delay="5000"
+        app:auto_scroll_delay="2000"
         app:dot_margin="20dp"
         app:dot_gravity="bottom"
         app:layout_constraintLeft_toLeftOf="parent"
